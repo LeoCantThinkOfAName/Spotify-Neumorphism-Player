@@ -1,8 +1,8 @@
-import React, { ButtonHTMLAttributes, FC, useState, useRef } from "react";
+import React, { ButtonHTMLAttributes, FC, useState } from "react";
 import styled from "styled-components";
 
 // utilities
-import LightenDarkenColor from "../../utils/LightenDarkenColor";
+import Color from "color";
 
 interface StyleProps {
   size: number;
@@ -16,11 +16,11 @@ const StyledButton = styled.button<StyleProps>`
   border-radius: 50%;
   border: 0;
   cursor: pointer;
-  margin: 5px;
+  margin: 10px;
   outline: none;
   ${props => `
     align-items: center;
-    color: ${LightenDarkenColor(props.bg, -40)};
+    color: ${Color(props.bg).darken(0.5)};
     display: inline-flex;
     font-size: ${props.size * 0.2}px;
     font-weight: 800;
@@ -33,25 +33,21 @@ const StyledButton = styled.button<StyleProps>`
   ${props => {
     if (props.pressed) {
       return `
-      background: linear-gradient(145deg, ${LightenDarkenColor(
-        props.bg,
-        -10
-      )}, ${LightenDarkenColor(props.bg, 10)});
-      box-shadow: -10px -5px 20px ${LightenDarkenColor(
-        props.bg,
-        20
-      )}, 10px 5px 20px ${LightenDarkenColor(props.bg, -20)};
+      background: linear-gradient(145deg, ${Color(props.bg).darken(
+        0.1
+      )}, ${Color(props.bg).lighten(0.1)});
+      box-shadow: -10px -5px 20px ${Color(props.bg).lighten(
+        0.2
+      )}, 10px 5px 20px ${Color(props.bg).darken(0.1)};
       `;
     } else {
       return `
-      background: linear-gradient(145deg, ${LightenDarkenColor(
-        props.bg,
-        25
-      )}, ${LightenDarkenColor(props.bg, -25)});
-      box-shadow: -10px -5px 20px ${LightenDarkenColor(
-        props.bg,
-        30
-      )}, 10px 5px 20px ${LightenDarkenColor(props.bg, -50)};
+      background: linear-gradient(145deg, ${Color(props.bg).lighten(
+        0.25
+      )}, ${Color(props.bg).darken(0.35)});
+      box-shadow: -10px -5px 20px ${Color(props.bg).lighten(
+        0.3
+      )}, 10px 5px 20px ${Color(props.bg).darken(0.5)};
       `;
     }
   }}

@@ -53,7 +53,7 @@ const App = () => {
     <GlobalContext.Provider value={{ token, setToken }}>
       <div className="App">
         <Body bg="#b51d2f">
-          <Screen height={250} width={220}>
+          <Screen height={250} width={240}>
             <Header />
             {!token && <LoginButton />}
           </Screen>
