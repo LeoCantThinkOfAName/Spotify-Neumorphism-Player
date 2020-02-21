@@ -12,7 +12,7 @@ import Header from "./components/Header/index";
 import LoginButton from "./components/LoginButton/index";
 
 // utilities
-import playAlbum from "./utils/playAlbum";
+import playMusic from "./utils/playMusic";
 
 declare global {
   interface Window {
@@ -39,7 +39,7 @@ const App = () => {
           });
 
           player.current.on("ready", ({ device_id }: { device_id: string }) => {
-            playAlbum(device_id, token);
+            playMusic(device_id, token);
           });
 
           player.current.connect();

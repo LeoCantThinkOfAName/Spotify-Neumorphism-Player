@@ -1,4 +1,4 @@
-const playAlbum = (device_id: string, token: string) => {
+const playMusic = (device_id: string, token: string) => {
   fetch(`https://api.spotify.com/v1/me/player/play?device_id=${device_id}`, {
     method: "PUT",
     // @ts-ignore
@@ -12,4 +12,4 @@ const playAlbum = (device_id: string, token: string) => {
   });
 };
 
-export default playAlbum;
+export default playMusic;
