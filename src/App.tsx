@@ -14,6 +14,13 @@ import LoginButton from "./components/LoginButton/index";
 // utilities
 import playAlbum from "./utils/playAlbum";
 
+declare global {
+  interface Window {
+    onSpotifyPlayerAPIReady: any;
+    Spotify: any;
+  }
+}
+
 const App = () => {
   const [token, setToken] = useState<string | null>(null);
   const player = useRef<any>(null);
@@ -25,10 +32,8 @@ const App = () => {
       script.charset = "utf-8";
       script.async = true;
       script.onload = () => {
-        //@ts-ignore
         window.onSpotifyPlayerAPIReady = () => {
-          //@ts-ignore
-          player.current = new Spotify.Player({
+          player.current = new window.Spotify.Player({
             name: "web-player",
             getOAuthToken: (callback: any) => callback(token)
           });
