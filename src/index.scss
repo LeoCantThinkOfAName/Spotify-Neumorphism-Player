@@ -1,0 +1,67 @@
+:root {
+  font-family: sans-serif;
+  font-size: 16px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #fff4d9;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+.App {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  min-height: 100vh;
+  justify-content: center;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.battery-indicator {
+  align-items: center;
+  background: #eee;
+  display: flex;
+  height: 10px;
+  justify-content: space-around;
+  position: relative;
+  width: 15px;
+
+  span {
+    background-color: #555;
+    height: 8px;
+    width: 20%;
+
+    &:first-of-type {
+      animation: blink 1s linear 0s infinite forwards;
+    }
+  }
+
+  &::before {
+    background-color: #eee;
+    content: "";
+    height: 6px;
+    left: -2px;
+    position: absolute;
+    top: 2px;
+    width: 2px;
+  }
+}
