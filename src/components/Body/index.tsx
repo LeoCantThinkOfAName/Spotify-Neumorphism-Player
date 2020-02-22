@@ -9,10 +9,11 @@ interface IProp extends StyledProps {}
 
 const StyledDiv = styled.div<StyledProps>`
   border-radius: 10px;
-  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
   display: inline-flex;
   flex-direction: column;
   padding: 15px 15px 25px;
+  position: relative;
   ${props => `
     background: ${props.bg};
   `}
