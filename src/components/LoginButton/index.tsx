@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 // contexts
 import { ContextType, GlobalContext } from "../../contexts/GlobalContext";
@@ -23,22 +23,34 @@ const {
   REACT_APP_AUTH_ENDPOINT,
   REACT_APP_CLIENT_ID,
   REACT_APP_REDIRECT_URI,
-  REACT_APP_SCOPES
+  REACT_APP_SCOPES,
 } = process.env;
 
+const pulse = keyframes`
+  0% {
+    box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+  }
+  15% {
+    box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.25);
+  }
+  30% {
+    box-shadow: 0 0 0 16px rgba(255, 255, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+  }
+`;
+
 const StyledLink = styled.a`
+  animation: ${pulse} 2s ease-in infinite;
   align-items: center;
   background: #1db954;
   border-radius: 50px;
   color: #191414;
   display: flex;
   font-weight: 600;
-  left: 50%;
   padding: 10px;
-  position: absolute;
-  top: 50%;
   text-decoration: none;
-  transform: translate(-50%, -50%);
 
   p {
     margin: 0;
@@ -60,6 +72,7 @@ const LoginButton = () => {
         ",",
         "%20"
       )}&response_type=token&show_dialoag=true`}
+      title="Login Your Spotify account to continue."
     >
       <img src={logo} alt="Spotify" />
       <p>Login</p>

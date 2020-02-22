@@ -5,9 +5,9 @@ import styled from "styled-components";
 import Color from "color";
 
 interface StyleProps {
+  pressed?: boolean;
   size: number;
   bg: string;
-  pressed?: boolean;
 }
 
 interface IProp extends ButtonHTMLAttributes<HTMLButtonElement>, StyleProps {}
@@ -53,7 +53,7 @@ const StyledButton = styled.button<StyleProps>`
   }}
 `;
 
-const Button: FC<IProp> = ({ children, size, bg, ...restProp }) => {
+const Button: FC<IProp> = ({ children, size, bg, title, ...restProp }) => {
   const [click, setClick] = useState<boolean>(false);
 
   const handlePress = () => {
@@ -70,6 +70,7 @@ const Button: FC<IProp> = ({ children, size, bg, ...restProp }) => {
       onPointerDown={() => handlePress()}
       onPointerUp={() => handleRelease()}
       pressed={click}
+      title={title}
       size={size}
       bg={bg}
     >
