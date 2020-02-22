@@ -8,8 +8,8 @@ import Screen from "./components/Screen/index";
 import Container from "./components/Container";
 import Button from "./components/Button/index";
 import Body from "./components/Body";
-import Header from "./components/Header/index";
-import LoginButton from "./components/LoginButton/index";
+import Cord from "./components/Cord";
+import Palette from "./components/Palette";
 
 // utilities
 import playMusic from "./utils/playMusic";
@@ -23,6 +23,7 @@ declare global {
 
 const App = () => {
   const [token, setToken] = useState<string | null>(null);
+  const [theme, setTheme] = useState<string>("#ff5e00");
   const player = useRef<any>(null);
 
   useEffect(() => {
@@ -35,7 +36,7 @@ const App = () => {
         window.onSpotifyPlayerAPIReady = () => {
           player.current = new window.Spotify.Player({
             name: "web-player",
-            getOAuthToken: (callback: any) => callback(token)
+            getOAuthToken: (callback: any) => callback(token),
           });
 
           player.current.on("ready", ({ device_id }: { device_id: string }) => {
@@ -50,21 +51,24 @@ const App = () => {
   }, [token]);
 
   return (
-    <GlobalContext.Provider value={{ token, setToken }}>
+    <GlobalContext.Provider value={{ theme, setTheme, token, setToken }}>
       <div className="App">
-        <Body bg="#b51d2f">
-          <Screen height={250} width={240}>
-            <Header />
-            {!token && <LoginButton />}
-          </Screen>
+        <Palette />
+        <Body bg={theme}>
+          <Cord color={theme} />
+          <Screen
+            height={260}
+            width={240}
+            powerOn={token ? true : false}
+          ></Screen>
           <Container direction="row">
-            <Button size={50} bg="#b51d2f">
+            <Button size={50} bg={theme} title="Previous track">
               Prev
             </Button>
-            <Button size={70} bg="#b51d2f">
+            <Button size={70} bg={theme} title="Play/Pause">
               Play
             </Button>
-            <Button size={50} bg="#b51d2f">
+            <Button size={50} bg={theme} title="Next track">
               Next
             </Button>
           </Container>
