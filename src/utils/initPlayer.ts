@@ -1,5 +1,12 @@
 import playMusic from "../utils/playMusic";
 
+declare global {
+  interface Window {
+    onSpotifyPlayerAPIReady: any;
+    Spotify: any;
+  }
+}
+
 type Func = ({
   token,
   playlistId,
