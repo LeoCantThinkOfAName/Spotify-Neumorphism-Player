@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 
 // context
 import { GlobalContext } from "./contexts/GlobalContext";
@@ -12,7 +12,10 @@ import Cord from "./components/Cord";
 import Palette from "./components/Palette";
 
 // utilities
-import playMusic from "./utils/playMusic";
+import initPlayer from "./utils/initPlayer";
+
+// custom hooks
+import usePlaylist from "./hooks/usePlaylist";
 
 declare global {
   interface Window {
@@ -24,30 +27,11 @@ declare global {
 const App = () => {
   const [token, setToken] = useState<string | null>(null);
   const [theme, setTheme] = useState<string>("#ff5e00");
-  const player = useRef<any>(null);
+  const playlist = usePlaylist({ token, playlistId: "4GMQCtlmLaR8Any2pmMPPw" });
 
   useEffect(() => {
-    if (token) {
-      const script = document.createElement("script");
-      script.src = "https://sdk.scdn.co/spotify-player.js";
-      script.charset = "utf-8";
-      script.async = true;
-      script.onload = () => {
-        window.onSpotifyPlayerAPIReady = () => {
-          player.current = new window.Spotify.Player({
-            name: "web-player",
-            getOAuthToken: (callback: any) => callback(token),
-          });
-
-          player.current.on("ready", ({ device_id }: { device_id: string }) => {
-            playMusic(device_id, token);
-          });
-
-          player.current.connect();
-        };
-      };
-      document.body.append(script);
-    }
+    if (!token) return;
+    initPlayer({ token, playlistId: "4GMQCtlmLaR8Any2pmMPPw" });
   }, [token]);
 
   return (
