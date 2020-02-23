@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useReducer } from "react";
 
 // context
 import { GlobalContext } from "./contexts/GlobalContext";
@@ -11,23 +11,25 @@ import Body from "./components/Body";
 import Cord from "./components/Cord";
 import Palette from "./components/Palette";
 
+// reducers
+import themeReducer from "./reducers/ThemeReducer";
+import spotifyReducer from "./reducers/SpotifyReducer";
+
+// initial context
+import {
+  initialTheme,
+  initialSpotifyContext,
+} from "./contexts/initialContexts";
+
 // utilities
 import initPlayer from "./utils/initPlayer";
 
-// custom hooks
-import usePlaylist from "./hooks/usePlaylist";
-
-declare global {
-  interface Window {
-    onSpotifyPlayerAPIReady: any;
-    Spotify: any;
-  }
-}
-
 const App = () => {
-  const [token, setToken] = useState<string | null>(null);
-  const [theme, setTheme] = useState<string>("#ff5e00");
-  const playlist = usePlaylist({ token, playlistId: "4GMQCtlmLaR8Any2pmMPPw" });
+  const [{ theme }, dispatchTheme] = useReducer(themeReducer, initialTheme);
+  const [{ token }, dispatchSpotify] = useReducer(
+    spotifyReducer,
+    initialSpotifyContext
+  );
 
   useEffect(() => {
     if (!token) return;
@@ -35,7 +37,9 @@ const App = () => {
   }, [token]);
 
   return (
-    <GlobalContext.Provider value={{ theme, setTheme, token, setToken }}>
+    <GlobalContext.Provider
+      value={{ token, theme, dispatchTheme, dispatchSpotify }}
+    >
       <div className="App">
         <Palette />
         <Body bg={theme}>

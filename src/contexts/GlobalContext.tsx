@@ -1,15 +1,14 @@
 import React, { createContext } from "react";
+import { ThemeAction } from "../reducers/ThemeReducer";
+import { SpotifyAction } from "../reducers/SpotifyReducer";
 
-export interface ContextType {
+export type GlobalContextType = {
   theme: string;
-  setTheme: React.Dispatch<React.SetStateAction<string>> | any;
   token: string | null;
-  setToken: React.Dispatch<React.SetStateAction<string | null>> | any;
-}
+  dispatchTheme: React.Dispatch<ThemeAction>;
+  dispatchSpotify: React.Dispatch<SpotifyAction>;
+};
 
-export const GlobalContext = createContext<ContextType>({
-  theme: "",
-  setTheme: null,
-  token: null,
-  setToken: null,
-});
+export const GlobalContext = createContext<GlobalContextType>(
+  {} as GlobalContextType
+);
