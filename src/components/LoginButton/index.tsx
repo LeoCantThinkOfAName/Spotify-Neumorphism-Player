@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 
 // contexts
-import { ContextType, GlobalContext } from "../../contexts/GlobalContext";
+import { GlobalContext } from "../../contexts/GlobalContext";
 
 // utilities
 import getHashes from "../../utils/getHashes";
@@ -59,11 +59,8 @@ const StyledLink = styled.a`
 `;
 
 const LoginButton = () => {
-  const { setToken } = useContext<ContextType>(GlobalContext);
-
   useEffect(() => {
     const hashes = getHashes();
-    setToken(hashes.access_token);
   }, []);
 
   return (
