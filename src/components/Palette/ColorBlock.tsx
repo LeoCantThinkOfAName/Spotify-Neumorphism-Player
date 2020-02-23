@@ -1,16 +1,12 @@
-import React, { FC, useState, useContext } from "react";
+import React, { FC, useState, ButtonHTMLAttributes } from "react";
 import styled from "styled-components";
 
-// context
-import { GlobalContext } from "../../contexts/GlobalContext";
-
 interface StyleProps {
-  color: string;
+  displayColor: string;
   click?: boolean;
-  title?: string;
 }
 
-interface IProp extends StyleProps {}
+interface IProp extends StyleProps, ButtonHTMLAttributes<HTMLButtonElement> {}
 
 const StyledButton = styled.button<StyleProps>`
   background: #fff;
@@ -27,7 +23,7 @@ const StyledButton = styled.button<StyleProps>`
 
   ${props => `
     span {
-      background: ${props.color};
+      background: ${props.displayColor};
       border-radius: 50%;
       display: block;
       height: 100%;
@@ -37,9 +33,8 @@ const StyledButton = styled.button<StyleProps>`
   `}
 `;
 
-const ColorBlock: FC<IProp> = ({ color, title }) => {
+const ColorBlock: FC<IProp> = ({ displayColor, ...restProps }) => {
   const [click, setClick] = useState<boolean>(false);
-  const { setTheme } = useContext(GlobalContext);
 
   const handlePress = () => {
     setClick(true);
@@ -47,16 +42,15 @@ const ColorBlock: FC<IProp> = ({ color, title }) => {
 
   const handleRelease = () => {
     setClick(false);
-    setTheme(color);
   };
 
   return (
     <StyledButton
-      color={color}
+      displayColor={displayColor}
       click={click}
       onPointerDown={() => handlePress()}
       onPointerUp={() => handleRelease()}
-      title={title}
+      {...restProps}
     >
       <span />
     </StyledButton>

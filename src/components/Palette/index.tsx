@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useContext, useMemo } from "react";
 import styled from "styled-components";
+
+// context
+import { GlobalContext } from "../../contexts/GlobalContext";
 
 // components
 import ColorBlock from "./ColorBlock";
+import { CHANGE_THEME } from "../../reducers/actionTypes";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -11,15 +15,35 @@ const StyledDiv = styled.div`
 `;
 
 const Palette = () => {
+  const colorArr = useMemo(
+    () => [
+      { displayColor: "#ff0037", title: "Red" },
+      { displayColor: "#ff5e00", title: "Orange" },
+      { displayColor: "#ffbf00", title: "Yellow" },
+      { displayColor: "#04e0a6", title: "Turquoise" },
+      { displayColor: "#5c04e0", title: "Violet" },
+      { displayColor: "#555555", title: "Black" },
+      { displayColor: "#e3e3e3", title: "White" },
+    ],
+    []
+  );
+  const { dispatchTheme } = useContext(GlobalContext);
+
   return (
     <StyledDiv>
-      <ColorBlock color="#ff0037" title="Red" />
-      <ColorBlock color="#ff5e00" title="Orange" />
-      <ColorBlock color="#ffbf00" title="Yellow" />
-      <ColorBlock color="#04e0a6" title="Turquoise" />
-      <ColorBlock color="#5c04e0" title="Violet" />
-      <ColorBlock color="#555555" title="Black" />
-      <ColorBlock color="#e3e3e3" title="White" />
+      {colorArr.map((item, index) => (
+        <ColorBlock
+          key={index}
+          title={item.title}
+          displayColor={item.displayColor}
+          onClick={() =>
+            dispatchTheme({
+              type: CHANGE_THEME,
+              payload: item.displayColor,
+            })
+          }
+        />
+      ))}
     </StyledDiv>
   );
 };
