@@ -1,13 +1,19 @@
-const playMusic = (device_id: string, token: string) => {
-  fetch(`https://api.spotify.com/v1/me/player/play?device_id=${device_id}`, {
+type IProp = {
+  deviceId: string;
+  token: string;
+  playlistId: string;
+};
+
+const playMusic = ({ deviceId, token, playlistId }: IProp) => {
+  fetch(`https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`, {
     method: "PUT",
     // @ts-ignore
-    body: '{"context_uri":"spotify:playlist:4GMQCtlmLaR8Any2pmMPPw"}',
+    body: `{"context_uri":"spotify:playlist:${playlistId}"}`,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
-      Accept: "application/json"
-    }
+      Accept: "application/json",
+    },
   }).then((data: any) => console.log(data));
 };
 
