@@ -9,16 +9,16 @@ import transformPlaylist from "../utils/transformPlaylist";
 
 type Hook = ({
   token,
-  playlistId,
+  playlistId
 }: {
   token: string | null;
   playlistId: string;
-}) => MyPlaylist[] | null;
+}) => MyPlaylist[];
 
 // playlistId = 4GMQCtlmLaR8Any2pmMPPw;
 
 const usePlaylist: Hook = ({ token, playlistId }) => {
-  const [playlist, setPlaylist] = useState<MyPlaylist[] | null>(null);
+  const [playlist, setPlaylist] = useState<MyPlaylist[]>([]);
 
   useEffect(() => {
     if (token) {
@@ -28,8 +28,8 @@ const usePlaylist: Hook = ({ token, playlistId }) => {
           headers: {
             Accept: "application/json",
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
+            "Content-Type": "application/json"
+          }
         }
       )
         .then((data: any) => data.json())
@@ -37,11 +37,7 @@ const usePlaylist: Hook = ({ token, playlistId }) => {
     }
   }, [token, playlistId]);
 
-  if (playlist) {
-    return playlist;
-  }
-
-  return null;
+  return playlist;
 };
 
 export default usePlaylist;
