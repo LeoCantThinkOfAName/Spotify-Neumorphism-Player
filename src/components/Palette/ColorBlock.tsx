@@ -1,4 +1,10 @@
-import React, { FC, useState, ButtonHTMLAttributes } from "react";
+import React, {
+  FC,
+  useState,
+  ButtonHTMLAttributes,
+  useCallback,
+  memo
+} from "react";
 import styled from "styled-components";
 
 interface StyleProps {
@@ -36,20 +42,20 @@ const StyledButton = styled.button<StyleProps>`
 const ColorBlock: FC<IProp> = ({ displayColor, ...restProps }) => {
   const [click, setClick] = useState<boolean>(false);
 
-  const handlePress = () => {
+  const handlePress = useCallback(() => {
     setClick(true);
-  };
+  }, []);
 
-  const handleRelease = () => {
+  const handleRelease = useCallback(() => {
     setClick(false);
-  };
+  }, []);
 
   return (
     <StyledButton
       displayColor={displayColor}
       click={click}
-      onPointerDown={() => handlePress()}
-      onPointerUp={() => handleRelease()}
+      onPointerDown={handlePress}
+      onPointerUp={handleRelease}
       {...restProps}
     >
       <span />
@@ -57,4 +63,4 @@ const ColorBlock: FC<IProp> = ({ displayColor, ...restProps }) => {
   );
 };
 
-export default ColorBlock;
+export default memo(ColorBlock);

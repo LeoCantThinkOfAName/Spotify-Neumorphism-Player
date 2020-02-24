@@ -1,4 +1,10 @@
-import React, { ButtonHTMLAttributes, FC, useState } from "react";
+import React, {
+  ButtonHTMLAttributes,
+  FC,
+  useState,
+  memo,
+  useCallback
+} from "react";
 import styled from "styled-components";
 
 // utilities
@@ -43,10 +49,10 @@ const StyledButton = styled.button<StyleProps>`
     } else {
       return `
       background: linear-gradient(145deg, ${Color(props.bg).lighten(
-        0.25
-      )}, ${Color(props.bg).darken(0.35)});
+        0.2
+      )}, ${Color(props.bg).darken(0.4)});
       box-shadow: -10px -5px 20px ${Color(props.bg).lighten(
-        0.3
+        0.25
       )}, 10px 5px 20px ${Color(props.bg).darken(0.5)};
       `;
     }
@@ -56,19 +62,19 @@ const StyledButton = styled.button<StyleProps>`
 const Button: FC<IProp> = ({ children, size, bg, title, ...restProp }) => {
   const [click, setClick] = useState<boolean>(false);
 
-  const handlePress = () => {
+  const handlePress = useCallback(() => {
     setClick(true);
-  };
+  }, []);
 
-  const handleRelease = () => {
+  const handleRelease = useCallback(() => {
     setClick(false);
-  };
+  }, []);
 
   return (
     <StyledButton
       {...restProp}
-      onPointerDown={() => handlePress()}
-      onPointerUp={() => handleRelease()}
+      onPointerDown={handlePress}
+      onPointerUp={handleRelease}
       pressed={click}
       title={title}
       size={size}
@@ -79,4 +85,4 @@ const Button: FC<IProp> = ({ children, size, bg, title, ...restProp }) => {
   );
 };
 
-export default Button;
+export default memo(Button);

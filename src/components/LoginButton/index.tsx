@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 
 // contexts
-import { GlobalContext } from "../../contexts/GlobalContext";
+import { SpotifyContext } from "../../contexts/GlobalContext";
 
 // utilities
 import getHashes from "../../utils/getHashes";
@@ -60,14 +60,16 @@ const StyledLink = styled.a`
 `;
 
 const LoginButton = () => {
-  const { dispatchSpotify } = useContext(GlobalContext);
+  const { dispatchSpotify } = useContext(SpotifyContext);
 
   useEffect(() => {
     const hashes = getHashes();
-    dispatchSpotify({
-      type: SET_TOKEN,
-      payload: hashes.access_token
-    });
+    if (hashes.access_token) {
+      dispatchSpotify({
+        type: SET_TOKEN,
+        payload: hashes.access_token
+      });
+    }
   }, [dispatchSpotify]);
 
   return (
