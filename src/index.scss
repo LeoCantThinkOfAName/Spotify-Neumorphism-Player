@@ -65,3 +65,18 @@ body {
     width: 2px;
   }
 }
+
+.swiper-container {
+  overflow: visible !important;
+  width: 100%;
+}
+
+.swiper-slide {
+  opacity: 0.5;
+  perspective: 80px;
+  position: relative;
+
+  &.swiper-slide-active {
+    opacity: 1;
+  }
+}
