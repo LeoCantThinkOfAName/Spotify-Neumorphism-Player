@@ -9,6 +9,7 @@ import getHashes from "../../utils/getHashes";
 
 // assets
 import logo from "../../images/spotify-logo.svg";
+import { SET_TOKEN } from "../../reducers/actionTypes";
 
 declare var process: {
   env: {
@@ -23,7 +24,7 @@ const {
   REACT_APP_AUTH_ENDPOINT,
   REACT_APP_CLIENT_ID,
   REACT_APP_REDIRECT_URI,
-  REACT_APP_SCOPES,
+  REACT_APP_SCOPES
 } = process.env;
 
 const pulse = keyframes`
@@ -59,9 +60,15 @@ const StyledLink = styled.a`
 `;
 
 const LoginButton = () => {
+  const { dispatchSpotify } = useContext(GlobalContext);
+
   useEffect(() => {
     const hashes = getHashes();
-  }, []);
+    dispatchSpotify({
+      type: SET_TOKEN,
+      payload: hashes.access_token
+    });
+  }, [dispatchSpotify]);
 
   return (
     <StyledLink
