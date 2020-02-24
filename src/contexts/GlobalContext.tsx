@@ -2,13 +2,21 @@ import React, { createContext } from "react";
 import { ThemeAction } from "../reducers/ThemeReducer";
 import { SpotifyAction } from "../reducers/SpotifyReducer";
 
-export type GlobalContextType = {
-  theme: string;
+export type SpotifyContextType = {
   token: string | null;
-  dispatchTheme: React.Dispatch<ThemeAction>;
+  playlistId: string;
   dispatchSpotify: React.Dispatch<SpotifyAction>;
 };
 
-export const GlobalContext = createContext<GlobalContextType>(
-  {} as GlobalContextType
+export type ThemeContextType = {
+  theme: string;
+  dispatchTheme: React.Dispatch<ThemeAction>;
+};
+
+export const SpotifyContext = createContext<SpotifyContextType>(
+  {} as SpotifyContextType
+);
+
+export const ThemeContext = createContext<ThemeContextType>(
+  {} as ThemeContextType
 );
