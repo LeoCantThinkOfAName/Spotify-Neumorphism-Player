@@ -1,68 +1,82 @@
 import React, { useEffect, useReducer } from "react";
 
 // context
-import { ThemeContext, SpotifyContext } from "./contexts/GlobalContext";
+import {
+  ThemeContext,
+  SpotifyContext,
+  PlaylistContext
+} from "./contexts/GlobalContext";
 
 // components
 import Screen from "./components/Screen/index";
-import Container from "./components/Container";
-import Button from "./components/Button/index";
 import Body from "./components/Body";
 import Cord from "./components/Cord";
 import Palette from "./components/Palette";
+import ControlPanel from "./components/ControlPanel";
 
 // reducers
 import themeReducer from "./reducers/ThemeReducer";
 import spotifyReducer from "./reducers/SpotifyReducer";
+import playlistReducer from "./reducers/PlaylistReducer";
 
 // initial context
 import {
   initialTheme,
-  initialSpotifyContext
+  initialSpotifyContext,
+  initialPlaylist
 } from "./contexts/initialContexts";
 
+// custom hook
+import usePlayer from "./hooks/usePlayer";
+
+// action types
+import { SET_DEVICE_ID } from "./reducers/actionTypes";
+
 // utilities
-import initPlayer from "./utils/initPlayer";
+import playMusic from "./utils/playMusic";
 
 const App = () => {
   const [{ theme }, dispatchTheme] = useReducer(themeReducer, initialTheme);
-  const [{ token, playlistId }, dispatchSpotify] = useReducer(
+  const [{ token, playlistId, deviceId }, dispatchSpotify] = useReducer(
     spotifyReducer,
     initialSpotifyContext
   );
+  const [{ playlist, currentId }, dispatchPlaylist] = useReducer(
+    playlistReducer,
+    initialPlaylist
+  );
+  const device_id = usePlayer(token);
 
   useEffect(() => {
-    if (!token) return;
-    initPlayer({ token, playlistId });
-  }, [token]);
+    if (device_id) dispatchSpotify({ type: SET_DEVICE_ID, payload: device_id });
+    if (token && device_id) {
+      playMusic({ deviceId: device_id, token, playlistId });
+    }
+  }, [device_id, token, playlistId]);
 
   return (
     <ThemeContext.Provider value={{ theme, dispatchTheme }}>
-      <SpotifyContext.Provider value={{ token, playlistId, dispatchSpotify }}>
-        <div className="App">
-          <Palette />
-          <Body bg={theme}>
-            <Cord color={theme} />
-            <Screen
-              height={260}
-              width={240}
-              powerOn={token ? true : false}
-              token={token}
-              playlistId={playlistId}
-            ></Screen>
-            <Container direction="row">
-              <Button size={50} bg={theme} title="Previous track">
-                Prev
-              </Button>
-              <Button size={70} bg={theme} title="Play/Pause">
-                Play
-              </Button>
-              <Button size={50} bg={theme} title="Next track">
-                Next
-              </Button>
-            </Container>
-          </Body>
-        </div>
+      <SpotifyContext.Provider
+        value={{ token, playlistId, deviceId, dispatchSpotify }}
+      >
+        <PlaylistContext.Provider
+          value={{ playlist, currentId, dispatchPlaylist }}
+        >
+          <div className="App">
+            <Palette />
+            <Body bg={theme}>
+              <Cord color={theme} />
+              <Screen
+                height={260}
+                width={240}
+                powerOn={token ? true : false}
+                token={token}
+                playlistId={playlistId}
+              ></Screen>
+              <ControlPanel />
+            </Body>
+          </div>
+        </PlaylistContext.Provider>
       </SpotifyContext.Provider>
     </ThemeContext.Provider>
   );

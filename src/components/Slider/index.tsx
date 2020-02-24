@@ -1,5 +1,5 @@
-import React, { FC } from "react";
-import Swiper from "react-id-swiper";
+import React, { FC, useState, useEffect } from "react";
+import Swiper, { SwiperInstance } from "react-id-swiper";
 import styled from "styled-components";
 import "swiper/css/swiper.css";
 
@@ -12,9 +12,16 @@ const StyledImg = styled.img`
 
 type SliderType = {
   playlist: MyPlaylist[];
+  currentId: string;
 };
 
-const Slider: FC<SliderType> = ({ playlist }) => {
+const Slider: FC<SliderType> = ({ playlist, currentId }) => {
+  const [swiper, updateSwiper] = useState<SwiperInstance | null>(null);
+
+  useEffect(() => {
+    console.log(currentId);
+  }, [currentId]);
+
   const params = {
     effect: "coverflow",
     coverflowEffect: {
@@ -33,7 +40,7 @@ const Slider: FC<SliderType> = ({ playlist }) => {
   };
 
   return (
-    <Swiper {...params}>
+    <Swiper {...params} getSwiper={updateSwiper}>
       {playlist.map(track => (
         <div key={track.id} className="swiper-slide">
           <StyledImg src={track.thumbnail} alt={track.albumName} />

@@ -9,13 +9,13 @@ declare global {
 
 type Func = ({
   token,
-  playlistId,
+  playlistId
 }: {
   token: string | null;
   playlistId: string;
 }) => void;
 
-const initPlayer: Func = ({ token, playlistId }) => {
+const initPlayer: Func = async ({ token, playlistId }) => {
   if (!token) return;
 
   const script = document.createElement("script");
@@ -25,15 +25,28 @@ const initPlayer: Func = ({ token, playlistId }) => {
   script.onload = () => {
     window.onSpotifyPlayerAPIReady = () => {
       const player = new window.Spotify.Player({
-        name: "web-player",
-        getOAuthToken: (callback: any) => callback(token),
+        name: "LCTOAN Walkmeh",
+        getOAuthToken: (callback: any) => callback(token)
+      });
+
+      player.on("initialization_error", ({ message }: { message: string }) => {
+        console.log({
+          success: false,
+          action: "initialization",
+          message
+        });
       });
 
       player.on("ready", ({ device_id }: { device_id: string }) => {
+        console.log({
+          success: true,
+          action: "device ready",
+          message: `Successfully initialized on deviceId: ${device_id}`
+        });
         playMusic({
           deviceId: device_id,
           token,
-          playlistId,
+          playlistId
         });
       });
 

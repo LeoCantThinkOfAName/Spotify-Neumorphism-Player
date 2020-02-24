@@ -1,18 +1,26 @@
 import { MyPlaylist } from "../types/playlist";
-import { SET_PLAYLIST } from "./actionTypes";
+import { SET_PLAYLIST, SET_CURRENT_ID } from "./actionTypes";
+import { PlaylistType } from "../contexts/initialContexts";
 
-export type PlaylistAction = {
-  type: typeof SET_PLAYLIST;
-  payload: MyPlaylist[];
-};
+export type PlaylistAction =
+  | {
+      type: typeof SET_PLAYLIST;
+      payload: MyPlaylist[];
+    }
+  | {
+      type: typeof SET_CURRENT_ID;
+      payload: string;
+    };
 
-const playlistReducer: React.Reducer<MyPlaylist[], PlaylistAction> = (
+const playlistReducer: React.Reducer<PlaylistType, PlaylistAction> = (
   state,
   action
 ) => {
   switch (action.type) {
     case SET_PLAYLIST:
-      return action.payload;
+      return { ...state, playlist: action.payload };
+    case SET_CURRENT_ID:
+      return { ...state, currentId: action.payload };
     default:
       return state;
   }

@@ -12,9 +12,15 @@ const playMusic = ({ deviceId, token, playlistId }: IProp) => {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
-      Accept: "application/json",
-    },
-  }).then((data: any) => console.log(data));
+      Accept: "application/json"
+    }
+  }).then((data: any) =>
+    console.log({
+      success: true,
+      action: "Play with spotify",
+      message: `Start playlist ${playlistId} on device ${deviceId}`
+    })
+  );
 };
 
 export default playMusic;

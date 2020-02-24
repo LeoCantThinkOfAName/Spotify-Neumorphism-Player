@@ -1,9 +1,15 @@
-import React, { FC } from "react";
+import React, { FC, useContext, useEffect } from "react";
 import styled from "styled-components";
+
+// custom hook
+import usePlaylist from "../../hooks/usePlaylist";
 
 // components
 import LoginButton from "../LoginButton";
 import Header from "../Header/index";
+import Slider from "../Slider";
+import { PlaylistContext } from "../../contexts/GlobalContext";
+import { SET_PLAYLIST } from "../../reducers/actionTypes";
 
 interface StyledProps {
   height: number;
@@ -11,7 +17,10 @@ interface StyledProps {
   powerOn: boolean;
 }
 
-interface IProps extends StyledProps {}
+interface IProps extends StyledProps {
+  token: string | null;
+  playlistId: string;
+}
 
 const StyledDiv = styled.div<StyledProps>`
   border-radius: 5px;
@@ -32,6 +41,7 @@ const StyledDiv = styled.div<StyledProps>`
       top: -90%;
       position: absolute;
       width: ${props.width / 1.5}px;
+      z-index: 100;
     }
   `}
 `;
@@ -45,6 +55,7 @@ const StyledBorder = styled.div`
   height: 100%;
   justify-content: space-between;
   position: absolute;
+  overflow: hidden;
   width: 100%;
 `;
 
@@ -60,14 +71,25 @@ const StyledLabel = styled.div`
   width: 100%;
 `;
 
-const Screen: FC<IProps> = ({ height, width, powerOn, children }) => {
+const Screen: FC<IProps> = ({ height, width, powerOn, token, playlistId }) => {
+  const { playlist, currentId, dispatchPlaylist } = useContext(PlaylistContext);
+  const fetchPlayList = usePlaylist({ token, playlistId });
+
+  useEffect(() => {
+    if (fetchPlayList) {
+      dispatchPlaylist({ type: SET_PLAYLIST, payload: fetchPlayList });
+    }
+  }, [fetchPlayList]);
+
   return (
     <StyledDiv height={height} width={width} powerOn={powerOn}>
       <StyledBorder>
         {powerOn ? <Header /> : <div />}
         {!powerOn && <LoginButton />}
-        {powerOn && children}
-        <StyledLabel>LCTOAN Walkmeh</StyledLabel>
+        {powerOn && playlist.length > 0 && (
+          <Slider playlist={playlist} currentId={currentId} />
+        )}
+        <StyledLabel>Walkmeh</StyledLabel>
       </StyledBorder>
     </StyledDiv>
   );
