@@ -11,6 +11,7 @@ import usePlaylist from "../../hooks/usePlaylist";
 import LoginButton from "../LoginButton";
 import Header from "../Header/index";
 import Slider from "../Slider";
+import Progress from "../Progress/index";
 
 // action type
 import { SET_PLAYLIST } from "../../contexts/actionTypes";
@@ -91,7 +92,10 @@ const Screen: FC<IProps> = ({ height, width, powerOn, token, playlistId }) => {
         {powerOn ? <Header /> : <div />}
         {!powerOn && <LoginButton />}
         {powerOn && playlist.length > 0 && (
-          <Slider playlist={playlist} currentId={currentId} />
+          <>
+            <Slider playlist={playlist} currentId={currentId} />
+            <Progress />
+          </>
         )}
         <StyledLabel>Walkmeh</StyledLabel>
       </StyledBorder>
