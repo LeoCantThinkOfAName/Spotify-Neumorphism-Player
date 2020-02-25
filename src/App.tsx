@@ -22,15 +22,17 @@ import playMusic from "./utils/playMusic";
 
 const App = () => {
   const { theme } = useContext(ThemeContext);
-  const { token, playlistId, dispatchSpotify } = useContext(SpotifyContext);
-  const device_id = usePlayer(token);
+  const { token, playlistId, deviceId, dispatchSpotify } = useContext(
+    SpotifyContext
+  );
+  const test = usePlayer();
 
   useEffect(() => {
-    if (device_id) dispatchSpotify({ type: SET_DEVICE_ID, payload: device_id });
-    if (token && device_id) {
-      playMusic({ deviceId: device_id, token, playlistId });
+    if (deviceId) dispatchSpotify({ type: SET_DEVICE_ID, payload: deviceId });
+    if (token && deviceId) {
+      playMusic({ deviceId: deviceId, token, playlistId });
     }
-  }, [device_id, token, playlistId, dispatchSpotify]);
+  }, [deviceId, token, playlistId, dispatchSpotify]);
 
   return (
     <div className="App">

@@ -16,11 +16,14 @@ type SliderType = {
 };
 
 const Slider: FC<SliderType> = ({ playlist, currentId }) => {
-  const [_swiper, updateSwiper] = useState<SwiperInstance | null>(null);
+  const [swiper, updateSwiper] = useState<SwiperInstance | null>(null);
+  const slidePosition = playlist.findIndex(track => track.id === currentId);
 
   useEffect(() => {
-    console.log(currentId);
-  }, [currentId]);
+    if (slidePosition !== -1) {
+      swiper.slideTo(slidePosition + 2);
+    }
+  }, [slidePosition, swiper]);
 
   const params = {
     effect: "coverflow",
@@ -31,9 +34,10 @@ const Slider: FC<SliderType> = ({ playlist, currentId }) => {
       modifier: 1,
       slideShadows: false
     },
+    loop: true,
+    loopedSlides: 2,
     spaceBetween: 0,
     slidesPerView: 2,
-    loop: true,
     parallax: true,
     centeredSlides: true,
     simulateTouch: false

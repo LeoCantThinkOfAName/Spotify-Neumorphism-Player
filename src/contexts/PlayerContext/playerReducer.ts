@@ -22,9 +22,9 @@ export const playerReducer: React.Reducer<PlayerType, PlayerActionType> = (
 ) => {
   switch (action.type) {
     case SET_PAUSE:
-      return { ...state, pause: !state.pause };
+      return { ...state, pause: action.payload };
     case SET_POSITION:
-      return { ...state, position: action.payload };
+      return { ...state, currentPosition: action.payload };
     default:
       return state;
   }

@@ -16,7 +16,7 @@ export type PlaylistType = {
 
 export type PlayerType = {
   pause: boolean;
-  position: number;
+  currentPosition: number;
 };
 
 export const initialSpotifyContext: SpotifyType = {
@@ -29,4 +29,4 @@ export const initialTheme: ThemeType = { theme: "#ff0037" };
 
 export const initialPlaylist: PlaylistType = { playlist: [], currentId: "" };
 
-export const initialPlayer: PlayerType = { pause: false, position: 0 };
+export const initialPlayer: PlayerType = { pause: false, currentPosition: 0 };

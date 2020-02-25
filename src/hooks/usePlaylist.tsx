@@ -13,12 +13,12 @@ type Hook = ({
 }: {
   token: string | null;
   playlistId: string;
-}) => MyPlaylist[];
+}) => MyPlaylist[] | null;
 
 // playlistId = 4GMQCtlmLaR8Any2pmMPPw;
 
 const usePlaylist: Hook = ({ token, playlistId }) => {
-  const [playlist, setPlaylist] = useState<MyPlaylist[]>([]);
+  const [playlist, setPlaylist] = useState<MyPlaylist[] | null>(null);
 
   useEffect(() => {
     if (token) {

@@ -83,7 +83,7 @@ const Screen: FC<IProps> = ({ height, width, powerOn, token, playlistId }) => {
     if (fetchPlayList) {
       dispatchPlaylist({ type: SET_PLAYLIST, payload: fetchPlayList });
     }
-  }, [fetchPlayList]);
+  }, [fetchPlayList, dispatchPlaylist]);
 
   return (
     <StyledDiv height={height} width={width} powerOn={powerOn}>

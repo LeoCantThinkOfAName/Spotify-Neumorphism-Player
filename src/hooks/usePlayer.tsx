@@ -1,4 +1,16 @@
-import { useState, useEffect } from "react";
+import { useEffect, useContext, useRef } from "react";
+
+// context
+import { PlaylistContext } from "../contexts/PlaylistContext/PlaylistContext";
+import { SpotifyContext } from "../contexts/SpotifyContext/SpotifyContext";
+import { PlayerContext } from "../contexts/PlayerContext/PlayerContext";
+
+// action type
+import {
+  SET_DEVICE_ID,
+  SET_CURRENT_ID,
+  SET_POSITION
+} from "../contexts/actionTypes";
 
 declare global {
   interface Window {
@@ -7,10 +19,19 @@ declare global {
   }
 }
 
-type Hook = (token: string | null) => string | null;
+type Hook = () => string | null;
 
-const usePlayer: Hook = token => {
-  const [deviceId, setDeviceId] = useState<string | null>(null);
+const usePlayer: Hook = () => {
+  const { token, deviceId, dispatchSpotify } = useContext(SpotifyContext);
+  const { currentId, dispatchPlaylist } = useContext(PlaylistContext);
+  const { currentPosition, pause, dispatchPlayer } = useContext(PlayerContext);
+  const player = useRef<any>(null);
+
+  useEffect(() => {
+    if (player.current) {
+      player.current.togglePlay();
+    }
+  }, [pause]);
 
   useEffect(() => {
     if (!token || deviceId) return;
@@ -21,12 +42,12 @@ const usePlayer: Hook = token => {
     script.async = true;
     script.onload = () => {
       window.onSpotifyPlayerAPIReady = () => {
-        const player = new window.Spotify.Player({
+        player.current = new window.Spotify.Player({
           name: "LCTOAN Walkmeh",
           getOAuthToken: (callback: any) => callback(token)
         });
 
-        player.on(
+        player.current.on(
           "initialization_error",
           ({ message }: { message: string }) => {
             console.log({
@@ -37,23 +58,53 @@ const usePlayer: Hook = token => {
           }
         );
 
-        player.on("ready", ({ device_id }: { device_id: string }) => {
+        player.current.on("ready", ({ device_id }: { device_id: string }) => {
           console.log({
             success: true,
             action: "device ready",
             message: `Successfully initialized on deviceId: ${device_id}`
           });
 
-          setDeviceId(device_id);
+          dispatchSpotify({ type: SET_DEVICE_ID, payload: device_id });
         });
 
-        player.connect();
+        player.current.on(
+          "player_state_changed",
+          ({
+            position,
+            duration,
+            track_window: {
+              current_track: { id }
+            }
+          }: {
+            position: number;
+            duration: number;
+            track_window: { current_track: { id: string } };
+          }) => {
+            if (currentId !== id) {
+              dispatchPlaylist({ type: SET_CURRENT_ID, payload: id });
+            }
+
+            dispatchPlayer({ type: SET_POSITION, payload: position });
+          }
+        );
+
+        player.current.connect();
       };
     };
     document.body.append(script);
-  }, [token, deviceId]);
+  }, [
+    token,
+    pause,
+    deviceId,
+    currentId,
+    currentPosition,
+    dispatchSpotify,
+    dispatchPlaylist,
+    dispatchPlayer
+  ]);
 
-  return deviceId;
+  return null;
 };
 
 export default usePlayer;

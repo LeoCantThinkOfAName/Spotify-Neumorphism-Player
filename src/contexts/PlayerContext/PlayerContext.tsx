@@ -13,13 +13,13 @@ interface PlayerContextType extends PlayerType {
 export const PlayerContext = createContext({} as PlayerContextType);
 
 export const PlayerProvider: FC = ({ children }) => {
-  const [{ pause, position }, dispatchPlayer] = useReducer(
+  const [{ pause, currentPosition }, dispatchPlayer] = useReducer(
     playerReducer,
     initialPlayer
   );
 
   return (
-    <PlayerContext.Provider value={{ pause, position, dispatchPlayer }}>
+    <PlayerContext.Provider value={{ pause, currentPosition, dispatchPlayer }}>
       {children}
     </PlayerContext.Provider>
   );

@@ -7,14 +7,17 @@ import App from "./App";
 import { ThemeProvider } from "./contexts/ThemeContext/ThemeContext";
 import { SpotifyProvider } from "./contexts/SpotifyContext/SpotifyContext";
 import { PlaylistProvider } from "./contexts/PlaylistContext/PlaylistContext";
+import { PlayerProvider } from "./contexts/PlayerContext/PlayerContext";
 
 ReactDOM.render(
-  <SpotifyProvider>
-    <PlaylistProvider>
-      <ThemeProvider>
-        <App />
-      </ThemeProvider>
-    </PlaylistProvider>
-  </SpotifyProvider>,
+  <ThemeProvider>
+    <SpotifyProvider>
+      <PlaylistProvider>
+        <PlayerProvider>
+          <App />
+        </PlayerProvider>
+      </PlaylistProvider>
+    </SpotifyProvider>
+  </ThemeProvider>,
   document.getElementById("root")
 );
