@@ -2,7 +2,7 @@ import React, { FC, useContext, useMemo } from "react";
 import styled from "styled-components";
 
 // context
-import { ThemeContext } from "../../contexts/GlobalContext";
+import { ThemeContext } from "../../contexts/ThemeContext";
 
 // components
 import ColorBlock from "./ColorBlock";

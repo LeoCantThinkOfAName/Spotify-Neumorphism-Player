@@ -16,7 +16,7 @@ type SliderType = {
 };
 
 const Slider: FC<SliderType> = ({ playlist, currentId }) => {
-  const [swiper, updateSwiper] = useState<SwiperInstance | null>(null);
+  const [_swiper, updateSwiper] = useState<SwiperInstance | null>(null);
 
   useEffect(() => {
     console.log(currentId);

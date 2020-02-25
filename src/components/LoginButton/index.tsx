@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 
 // contexts
-import { SpotifyContext } from "../../contexts/GlobalContext";
+import { SpotifyContext } from "../../contexts/SpotifyContext";
 
 // utilities
 import getHashes from "../../utils/getHashes";

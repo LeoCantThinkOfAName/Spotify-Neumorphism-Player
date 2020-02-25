@@ -1,6 +1,9 @@
 import React, { FC, useContext, useEffect } from "react";
 import styled from "styled-components";
 
+// context
+import { PlaylistContext } from "../../contexts/PlaylistContext";
+
 // custom hook
 import usePlaylist from "../../hooks/usePlaylist";
 
@@ -8,7 +11,8 @@ import usePlaylist from "../../hooks/usePlaylist";
 import LoginButton from "../LoginButton";
 import Header from "../Header/index";
 import Slider from "../Slider";
-import { PlaylistContext } from "../../contexts/GlobalContext";
+
+// action type
 import { SET_PLAYLIST } from "../../reducers/actionTypes";
 
 interface StyledProps {

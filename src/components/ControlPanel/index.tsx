@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
 
 // contexts
-import { ThemeContext, SpotifyContext } from "../../contexts/GlobalContext";
+import { ThemeContext } from "../../contexts/ThemeContext";
+import { SpotifyContext } from "../../contexts/SpotifyContext";
 
 // components
 import Container from "../Container";
