@@ -14,6 +14,11 @@ export type PlaylistType = {
   currentId: string;
 };
 
+export type PlayerType = {
+  pause: boolean;
+  position: number;
+};
+
 export const initialSpotifyContext: SpotifyType = {
   token: null,
   deviceId: null,
@@ -23,3 +28,5 @@ export const initialSpotifyContext: SpotifyType = {
 export const initialTheme: ThemeType = { theme: "#ff0037" };
 
 export const initialPlaylist: PlaylistType = { playlist: [], currentId: "" };
+
+export const initialPlayer: PlayerType = { pause: false, position: 0 };

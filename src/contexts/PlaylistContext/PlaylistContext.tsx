@@ -1,19 +1,14 @@
 import React, { createContext, FC, useReducer } from "react";
 
-// type
-import { MyPlaylist } from "../../types/playlist";
-
 // context
-import { initialPlaylist } from "../initialContexts";
+import { initialPlaylist, PlaylistType } from "../initialContexts";
 
 // reducer
 import playlistReducer, { PlaylistAction } from "./PlaylistReducer";
 
-export type PlaylistContextType = {
-  playlist: MyPlaylist[];
-  currentId: string;
+interface PlaylistContextType extends PlaylistType {
   dispatchPlaylist: React.Dispatch<PlaylistAction>;
-};
+}
 
 export const PlaylistContext = createContext<PlaylistContextType>(
   {} as PlaylistContextType

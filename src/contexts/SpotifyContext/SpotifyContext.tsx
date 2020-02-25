@@ -1,17 +1,14 @@
 import React, { createContext, FC, useReducer } from "react";
 
 // context
-import { initialSpotifyContext } from "../initialContexts";
+import { initialSpotifyContext, SpotifyType } from "../initialContexts";
 
 // reducer
 import spotifyReducer, { SpotifyAction } from "./SpotifyReducer";
 
-export type SpotifyContextType = {
-  token: string | null;
-  deviceId: string | null;
-  playlistId: string;
+interface SpotifyContextType extends SpotifyType {
   dispatchSpotify: React.Dispatch<SpotifyAction>;
-};
+}
 
 export const SpotifyContext = createContext<SpotifyContextType>(
   {} as SpotifyContextType

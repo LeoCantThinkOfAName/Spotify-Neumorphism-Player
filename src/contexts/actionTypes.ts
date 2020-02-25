@@ -4,3 +4,6 @@ export const SET_DEVICE_ID = "SET_DEVICE_ID";
 export const SET_PLAYLIST = "SET_PLAYLIST";
 export const SET_PLAYLIST_ID = "SET_PLAYLIST_ID";
 export const SET_CURRENT_ID = "SET_CURRENT_ID";
+
+export const SET_PAUSE = "SET_PAUSE";
+export const SET_POSITION = "SET_POSITION";

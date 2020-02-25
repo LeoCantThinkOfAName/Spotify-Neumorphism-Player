@@ -1,15 +1,14 @@
 import React, { createContext, FC, useReducer } from "react";
 
 // context
-import { initialTheme } from "../initialContexts";
+import { initialTheme, ThemeType } from "../initialContexts";
 
 // reducer
 import themeReducer, { ThemeAction } from "./ThemeReducer";
 
-export type ThemeContextType = {
-  theme: string;
+interface ThemeContextType extends ThemeType {
   dispatchTheme: React.Dispatch<ThemeAction>;
-};
+}
 
 export const ThemeContext = createContext<ThemeContextType>(
   {} as ThemeContextType
