@@ -2,14 +2,14 @@ import React, { useContext, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 
 // contexts
-import { SpotifyContext } from "../../contexts/SpotifyContext";
+import { SpotifyContext } from "../../contexts/SpotifyContext/SpotifyContext";
 
 // utilities
 import getHashes from "../../utils/getHashes";
 
 // assets
 import logo from "../../images/spotify-logo.svg";
-import { SET_TOKEN } from "../../reducers/actionTypes";
+import { SET_TOKEN } from "../../contexts/actionTypes";
 
 declare var process: {
   env: {

@@ -1,8 +1,8 @@
 import React, { useEffect, useContext } from "react";
 
 // context
-import { ThemeContext } from "./contexts/ThemeContext";
-import { SpotifyContext } from "./contexts/SpotifyContext";
+import { ThemeContext } from "./contexts/ThemeContext/ThemeContext";
+import { SpotifyContext } from "./contexts/SpotifyContext/SpotifyContext";
 
 // components
 import Screen from "./components/Screen/index";
@@ -15,7 +15,7 @@ import ControlPanel from "./components/ControlPanel";
 import usePlayer from "./hooks/usePlayer";
 
 // action types
-import { SET_DEVICE_ID } from "./reducers/actionTypes";
+import { SET_DEVICE_ID } from "./contexts/actionTypes";
 
 // utilities
 import playMusic from "./utils/playMusic";

@@ -1,13 +1,13 @@
 import React, { createContext, FC, useReducer } from "react";
 
 // type
-import { MyPlaylist } from "../types/playlist";
+import { MyPlaylist } from "../../types/playlist";
 
 // context
-import { initialPlaylist } from "./initialContexts";
+import { initialPlaylist } from "../initialContexts";
 
 // reducer
-import playlistReducer, { PlaylistAction } from "../reducers/PlaylistReducer";
+import playlistReducer, { PlaylistAction } from "./PlaylistReducer";
 
 export type PlaylistContextType = {
   playlist: MyPlaylist[];

@@ -1,10 +1,10 @@
 import React, { createContext, FC, useReducer } from "react";
 
 // context
-import { initialSpotifyContext } from "./initialContexts";
+import { initialSpotifyContext } from "../initialContexts";
 
 // reducer
-import spotifyReducer, { SpotifyAction } from "../reducers/SpotifyReducer";
+import spotifyReducer, { SpotifyAction } from "./SpotifyReducer";
 
 export type SpotifyContextType = {
   token: string | null;

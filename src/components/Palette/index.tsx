@@ -2,11 +2,11 @@ import React, { FC, useContext, useMemo } from "react";
 import styled from "styled-components";
 
 // context
-import { ThemeContext } from "../../contexts/ThemeContext";
+import { ThemeContext } from "../../contexts/ThemeContext/ThemeContext";
 
 // components
 import ColorBlock from "./ColorBlock";
-import { CHANGE_THEME } from "../../reducers/actionTypes";
+import { CHANGE_THEME } from "../../contexts/actionTypes";
 
 const StyledDiv = styled.div`
   display: flex;

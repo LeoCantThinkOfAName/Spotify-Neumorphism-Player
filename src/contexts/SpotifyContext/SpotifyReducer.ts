@@ -1,5 +1,5 @@
-import { SET_TOKEN, SET_DEVICE_ID, SET_PLAYLIST_ID } from "./actionTypes";
-import { SpotifyType } from "../contexts/initialContexts";
+import { SET_TOKEN, SET_DEVICE_ID, SET_PLAYLIST_ID } from "../actionTypes";
+import { SpotifyType } from "../initialContexts";
 
 export type SpotifyAction =
   | {

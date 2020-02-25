@@ -1,5 +1,5 @@
-import { CHANGE_THEME } from "./actionTypes";
-import { ThemeType } from "../contexts/initialContexts";
+import { CHANGE_THEME } from "../actionTypes";
+import { ThemeType } from "../initialContexts";
 
 export type ThemeAction = {
   type: typeof CHANGE_THEME;

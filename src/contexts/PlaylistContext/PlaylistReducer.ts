@@ -1,6 +1,6 @@
-import { MyPlaylist } from "../types/playlist";
-import { SET_PLAYLIST, SET_CURRENT_ID } from "./actionTypes";
-import { PlaylistType } from "../contexts/initialContexts";
+import { MyPlaylist } from "../../types/playlist";
+import { SET_PLAYLIST, SET_CURRENT_ID } from "../actionTypes";
+import { PlaylistType } from "../initialContexts";
 
 export type PlaylistAction =
   | {

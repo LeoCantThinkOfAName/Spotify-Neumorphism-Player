@@ -2,7 +2,7 @@ import React, { FC, useContext, useEffect } from "react";
 import styled from "styled-components";
 
 // context
-import { PlaylistContext } from "../../contexts/PlaylistContext";
+import { PlaylistContext } from "../../contexts/PlaylistContext/PlaylistContext";
 
 // custom hook
 import usePlaylist from "../../hooks/usePlaylist";
@@ -13,7 +13,7 @@ import Header from "../Header/index";
 import Slider from "../Slider";
 
 // action type
-import { SET_PLAYLIST } from "../../reducers/actionTypes";
+import { SET_PLAYLIST } from "../../contexts/actionTypes";
 
 interface StyledProps {
   height: number;

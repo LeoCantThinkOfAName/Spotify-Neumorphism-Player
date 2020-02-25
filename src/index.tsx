@@ -2,9 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.scss";
 import App from "./App";
-import { ThemeProvider } from "./contexts/ThemeContext";
-import { SpotifyProvider } from "./contexts/SpotifyContext";
-import { PlaylistProvider } from "./contexts/PlaylistContext";
+
+// providers
+import { ThemeProvider } from "./contexts/ThemeContext/ThemeContext";
+import { SpotifyProvider } from "./contexts/SpotifyContext/SpotifyContext";
+import { PlaylistProvider } from "./contexts/PlaylistContext/PlaylistContext";
 
 ReactDOM.render(
   <SpotifyProvider>
