@@ -1,4 +1,3 @@
-import getCurrentSong from "./getCurrentSong";
 type Func = ({
   direction,
   token,
@@ -7,11 +6,11 @@ type Func = ({
   direction: "next" | "previous";
   deviceId: string | null;
   token: string | null;
-}) => Promise<string | null> | null;
+}) => void;
 
-const navigateSongs: Func = async ({ direction, deviceId, token }) => {
+const navigateSongs: Func = ({ direction, deviceId, token }) => {
   if (!token) return null;
-  const next = await fetch(
+  fetch(
     `https://api.spotify.com/v1/me/player/${direction}?device_id=${deviceId}`,
     {
       headers: {
@@ -27,13 +26,7 @@ const navigateSongs: Func = async ({ direction, deviceId, token }) => {
       action: `Navigate to ${direction} song.`,
       message: res
     });
-    return true;
   });
-
-  if (!next) return null;
-  const id = await getCurrentSong(token);
-
-  return id;
 };
 
 export default navigateSongs;
