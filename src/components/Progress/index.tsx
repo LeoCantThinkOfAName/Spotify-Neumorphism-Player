@@ -18,7 +18,8 @@ const ProgressContainer = styled.div`
   width: 95%;
 
   span {
-    font-size: 12px;
+    display: block;
+    font-size: 10px;
     margin: 0 5px;
     width: 30px;
   }
@@ -72,15 +73,15 @@ const Progress = () => {
     }, 1000);
   }, []);
 
+  useEffect(() => {
+    setPosition(currentPosition);
+  }, [currentPosition]);
+
   return (
     <ProgressContainer>
-      {songLength && (
-        <>
-          <span>{progressFormatter(position)}</span>
-          <ProgressBar percentage={position / songLength} />
-          <span>{songLength && progressFormatter(songLength)}</span>
-        </>
-      )}
+      <span>{progressFormatter(position)}</span>
+      <ProgressBar percentage={songLength ? position / songLength : 0} />
+      <span>{songLength ? progressFormatter(songLength) : "00:00"}</span>
     </ProgressContainer>
   );
 };
