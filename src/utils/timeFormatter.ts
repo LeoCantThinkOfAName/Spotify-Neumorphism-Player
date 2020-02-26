@@ -3,8 +3,9 @@ export const timeformater = (time: number): string => {
 };
 
 export const progressFormatter = (time: number): string => {
-  const minutes = Math.floor(time / 60);
-  const seconds = Math.round(time - minutes * 60);
+  const baseTime = time / 1000;
+  const minutes = Math.floor(baseTime / 60);
+  const seconds = Math.round(baseTime - minutes * 60);
 
   return `${timeformater(minutes)}:${timeformater(seconds)}`;
 };

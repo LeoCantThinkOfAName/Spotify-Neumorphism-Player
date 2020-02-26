@@ -19,9 +19,10 @@ const ProgressContainer = styled.div`
 
   span {
     display: block;
-    font-size: 10px;
+    font-size: 12px;
     margin: 0 5px;
     width: 30px;
+    transform: scale(0.8);
   }
 `;
 
@@ -35,14 +36,15 @@ const ProgressBar = styled.div<ProgressBarType>`
     content: "";
     border-radius: 50%;
     position: absolute;
-    top: -3px;
+    top: -2px;
     left: 0;
-    height: 8px;
-    width: 8px;
+    height: 5px;
+    width: 5px;
     background: #555;
+    transition: 0.1s linear;
 
     ${props => `
-      transform: translateX(${props.percentage * 100}%);
+      left: ${props.percentage * (100 - 5)}%;
     `}
   }
 `;
@@ -55,7 +57,7 @@ const Progress = () => {
     const current = playlist.filter(track => track.id === currentId)[0];
 
     if (current) {
-      return current.duration / 1000;
+      return current.duration;
     }
     return null;
   }, [currentId, playlist]);
@@ -68,7 +70,7 @@ const Progress = () => {
 
     inter.current = setInterval(() => {
       setPosition(prevState => {
-        return (prevState += 1);
+        return (prevState += 1000);
       });
     }, 1000);
   }, []);
