@@ -8,10 +8,6 @@ import { PlaylistContext } from "../../contexts/PlaylistContext/PlaylistContext"
 // utilities
 import { progressFormatter } from "../../utils/timeFormatter";
 
-type ProgressBarType = {
-  percentage: number;
-};
-
 const ProgressContainer = styled.div`
   align-items: center;
   display: flex;
@@ -26,15 +22,15 @@ const ProgressContainer = styled.div`
   }
 `;
 
-const ProgressBar = styled.div<ProgressBarType>`
+const ProgressBar = styled.div`
   background: #555;
   height: 1px;
   position: relative;
   width: 100%;
 
-  &::after {
-    content: "";
+  .indicator {
     border-radius: 50%;
+    left: 0;
     position: absolute;
     top: -2px;
     left: 0;
@@ -42,10 +38,6 @@ const ProgressBar = styled.div<ProgressBarType>`
     width: 5px;
     background: #555;
     transition: 0.1s linear;
-
-    ${props => `
-      left: ${props.percentage * (100 - 5)}%;
-    `}
   }
 `;
 
@@ -82,7 +74,14 @@ const Progress = () => {
   return (
     <ProgressContainer>
       <span>{progressFormatter(position)}</span>
-      <ProgressBar percentage={songLength ? position / songLength : 0} />
+      <ProgressBar>
+        <div
+          className="indicator"
+          style={{
+            left: songLength ? `${(position / songLength) * (100 - 5)}%` : 0
+          }}
+        />
+      </ProgressBar>
       <span>{songLength ? progressFormatter(songLength) : "00:00"}</span>
     </ProgressContainer>
   );
