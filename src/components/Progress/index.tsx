@@ -37,7 +37,8 @@ const ProgressBar = styled.div`
     height: 5px;
     width: 5px;
     background: #555;
-    transition: 0.1s linear;
+    transform-origin: left;
+    transform: translateX(0px);
   }
 `;
 
@@ -78,7 +79,12 @@ const Progress = () => {
         <div
           className="indicator"
           style={{
-            left: songLength ? `${(position / songLength) * (100 - 5)}%` : 0
+            transform: `translateX(${
+              position === 0 ? 0 : songLength ? 125 : 0
+            }px)`,
+            transition: `${
+              position === 0 ? 0 : songLength ? songLength / 1000 : 0
+            }s linear`
           }}
         />
       </ProgressBar>
