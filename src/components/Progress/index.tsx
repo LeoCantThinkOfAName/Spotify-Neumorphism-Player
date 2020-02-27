@@ -1,4 +1,11 @@
-import React, { useContext, useState, useEffect, useRef, useMemo } from "react";
+import React, {
+  FC,
+  useContext,
+  useState,
+  useEffect,
+  useRef,
+  useMemo
+} from "react";
 import styled from "styled-components";
 
 // context
@@ -42,7 +49,7 @@ const ProgressBar = styled.div`
   }
 `;
 
-const Progress = () => {
+const Progress: FC = () => {
   const { playlist, currentId } = useContext(PlaylistContext);
   const { currentPosition } = useContext(PlayerContext);
   const [position, setPosition] = useState<number>(currentPosition);
